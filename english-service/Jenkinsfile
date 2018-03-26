@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh '''echo \"begin\"
 cd english-service
+pwd
 cat /home/butterfly/datasource > src/main/resources/application-prod.yml
 cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml
 gradle build -x test'''
