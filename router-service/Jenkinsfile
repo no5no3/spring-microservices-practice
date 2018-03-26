@@ -3,21 +3,22 @@ pipeline {
     stages{
         stage('Build') {
             steps {
-                sh 'echo "begin"'
-                sh 'cd router-service'
-                sh 'cat /home/butterfly/datasource > src/main/resources/application-prod.yml'
-                sh 'cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml'
-                sh 'gradle build -x test'
+                sh '''echo \"begin\"
+cd router-service
+pwd
+cat /home/hirenloong/datasource > src/main/resources/application-prod.yml
+cat /home/hirenloong/userinfo >> src/main/resources/application-prod.yml
+gradle build -x test'''
             }
         }
         stage('Docker Build') {
             steps {
-                sh 'cd router-service'
-                sh 'docker build -t router-service .'
-                sh 'docker stop router-service'
-                sh 'docker rm router-service'
-                sh 'docker create -p 8081:8081 -i -t --name router-service --network my-net voca'
-                sh 'docker container start router-service'
+                sh '''cd router-service
+docker build -t router-service .
+docker stop router-service
+docker rm router-service
+docker create -p 8083:8083 -i -t --name router-service --network my-net voca
+docker container start router-service'''
             }
         }
     }

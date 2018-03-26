@@ -3,21 +3,22 @@ pipeline {
     stages{
         stage('Build') {
             steps {
-                sh 'echo "begin"'
-                sh 'cd account-service'
-                sh 'cat /home/butterfly/datasource > src/main/resources/application-prod.yml'
-                sh 'cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml'
-                sh 'gradle build -x test'
+                sh '''echo \"begin\"
+cd account-service
+pwd
+cat /home/hirenloong/datasource > src/main/resources/application-prod.yml
+cat /home/hirenloong/userinfo >> src/main/resources/application-prod.yml
+gradle build -x test'''
             }
         }
         stage('Docker Build') {
             steps {
-                sh 'cd account-service'
-                sh 'docker build -t account-service .'
-                sh 'docker stop account-service'
-                sh 'docker rm account-service'
-                sh 'docker create -p 8081:8081 -i -t --name account-service --network my-net voca'
-                sh 'docker container start account-service'
+                sh '''cd account-service
+docker build -t account-service .
+docker stop account-service
+docker rm account-service
+docker create -p 8081:8081 -i -t --name account-service --network my-net voca
+docker container start account-service'''
             }
         }
     }

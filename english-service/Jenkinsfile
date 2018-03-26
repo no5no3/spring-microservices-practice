@@ -6,19 +6,19 @@ pipeline {
                 sh '''echo \"begin\"
 cd english-service
 pwd
-cat /home/butterfly/datasource > src/main/resources/application-prod.yml
-cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml
+cat /home/hirenloong/datasource > src/main/resources/application-prod.yml
+cat /home/hirenloong/userinfo >> src/main/resources/application-prod.yml
 gradle build -x test'''
             }
         }
         stage('Docker Build') {
             steps {
-                sh 'cd english-service'
-                sh 'docker build -t english-service .'
-                sh 'docker stop english-service'
-                sh 'docker rm english-service'
-                sh 'docker create -p 8081:8081 -i -t --name english-service --network my-net voca'
-                sh 'docker container start english-service'
+                sh '''cd english-service
+docker build -t english-service .
+docker stop english-service
+docker rm english-service
+docker create -p 8082:8082 -i -t --name english-service --network my-net voca
+docker container start english-service'''
             }
         }
     }
