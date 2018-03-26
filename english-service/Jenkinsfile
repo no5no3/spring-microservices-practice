@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo "begin"'
+                sh 'cd english-service'
                 sh 'cat /home/butterfly/datasource > src/main/resources/application-prod.yml'
                 sh 'cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml'
                 sh 'gradle build -x test'
@@ -11,6 +12,7 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
+                sh 'cd english-service'
                 sh 'docker build -t english-service .'
                 sh 'docker stop english-service'
                 sh 'docker rm english-service'

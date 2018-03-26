@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo "begin"'
+                sh 'cd router-service'
                 sh 'cat /home/butterfly/datasource > src/main/resources/application-prod.yml'
                 sh 'cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml'
                 sh 'gradle build -x test'
@@ -11,6 +12,7 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
+                sh 'cd router-service'
                 sh 'docker build -t router-service .'
                 sh 'docker stop router-service'
                 sh 'docker rm router-service'
