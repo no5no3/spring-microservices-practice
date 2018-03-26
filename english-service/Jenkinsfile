@@ -3,11 +3,11 @@ pipeline {
     stages{
         stage('Build') {
             steps {
-                sh 'echo "begin"'
-                sh 'cd english-service'
-                sh 'cat /home/butterfly/datasource > src/main/resources/application-prod.yml'
-                sh 'cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml'
-                sh 'gradle build -x test'
+                sh '''echo \"begin\"
+cd english-service
+cat /home/butterfly/datasource > src/main/resources/application-prod.yml
+cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml
+gradle build -x test'''
             }
         }
         stage('Docker Build') {
