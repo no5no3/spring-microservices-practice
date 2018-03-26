@@ -36,7 +36,8 @@ eureka:
     #use for standalone mode
 #    registerWithEureka: false
 #    fetchRegistry: false
-    service-url: {"local.zone":"http://${router.service.username}:${router.service.password}@localhost:8082/eureka/"}
+    service-url:
+      'local.zone': "http://${router.user.name}:${router.user.password}@localhost:8082/eureka/"
     region: 'local.region'
     availability-zones: {
       "local.region":"local.zone"
@@ -97,3 +98,4 @@ security:
 #    name: user
 #    role: system
 #  ignored: /eureka/
+#user define

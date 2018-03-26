@@ -5,6 +5,6 @@ spring:
     password: 123456
 #user define
 router:
-  service:
-    username: user
+  user:
+    name: user
     password: password
