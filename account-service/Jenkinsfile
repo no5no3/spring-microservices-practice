@@ -16,6 +16,7 @@ gradle build -x test'''
         stage('Docker Build') {
             steps {
                 sh '''cd account-service
+pwd
 docker build -t account-service .
 docker stop account-service | exit 0
 docker rm account-service | exit 0

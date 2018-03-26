@@ -15,6 +15,7 @@ gradle build -x test'''
         stage('Docker Build') {
             steps {
                 sh '''cd router-service
+pwd
 docker build -t router-service .
 docker stop router-service | exit 0
 docker rm router-service | exit 0
