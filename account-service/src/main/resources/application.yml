@@ -72,8 +72,10 @@ hystrix:
           strategy: SEMAPHORE
           thread:
 ribbon:
-  ConnectTimeout: 3000
-#  ReadTimeout: 60000 # uploading files
+  ConnectTimeout: 60000
+  ReadTimeout: 60000 # uploading files
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
   eureka:
     enabled: true
 # mybatis

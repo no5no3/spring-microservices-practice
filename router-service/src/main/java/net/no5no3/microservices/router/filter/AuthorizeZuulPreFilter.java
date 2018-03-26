@@ -3,6 +3,8 @@ package net.no5no3.microservices.router.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,8 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
 
 public class AuthorizeZuulPreFilter extends ZuulFilter {
+    @Autowired
+    private StringRedisTemplate template;
     @Override
     public String filterType() {
         return PRE_TYPE;
@@ -26,24 +30,27 @@ public class AuthorizeZuulPreFilter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
-        String token = request.getHeader("token");
-        return StringUtils.isEmpty(token);
+        if (request.getRequestURI().startsWith("/api/account/authorize")) {
+        } else {
+            String token = request.getHeader("token");
+            if (StringUtils.isEmpty(token) || template.opsForValue().getOperations().getExpire(token)< 0) {
+                return true;
+            }//end
+        }
+        return false;
     }
 
     @Override
     public Object run() {
         RequestContext requestContext = RequestContext.getCurrentContext();
-        if (requestContext.getRequest().getRequestURI().startsWith("/api/account/authorize")) {
-            //do nothing
-        }else{
-            HttpServletResponse response = requestContext.getResponse();
-            try {
-                response.sendError(401);
-            } catch (IOException e) {
-                e.printStackTrace();
-                requestContext.setSendZuulResponse(false);
-            }finally {
-            }
+
+        HttpServletResponse response = requestContext.getResponse();
+        try {
+            response.sendError(401);
+        } catch (IOException e) {
+            e.printStackTrace();
+            requestContext.setSendZuulResponse(false);
+        } finally {
         }
         return null;
     }

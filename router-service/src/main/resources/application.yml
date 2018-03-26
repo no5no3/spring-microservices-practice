@@ -72,8 +72,10 @@ hystrix:
 # http://cloud.spring.io/spring-cloud-static/spring-cloud-netflix/1.4.3.RELEASE/single/spring-cloud-netflix.html#netflix-ribbon-starter
 #            timeoutInMilliseconds: 60000
 ribbon:
-  ConnectTimeout: 3000
-#  ReadTimeout: 60000 # uploading files
+  ConnectTimeout: 60000
+  ReadTimeout: 60000 # uploading files
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
   eureka:
     enabled: true
 

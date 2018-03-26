@@ -6,7 +6,6 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@CrossOrigin(origins = "servicewechat.com",maxAge = 3600)
 public class MiniprogramController {
     private final static String API = "https://api.weixin.qq.com/sns/jscode2session";
     @Autowired
