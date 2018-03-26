@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages{
+        stage('Build') {
+            steps {
+                sh 'echo "begin"'
+                sh 'cat /home/butterfly/datasource > src/main/resources/application-prod.yml'
+                sh 'cat /home/butterfly/userinfo >> src/main/resources/application-prod.yml'
+                sh 'gradle build -x test'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t english-service .'
+                sh 'docker stop english-service'
+                sh 'docker rm english-service'
+                sh 'docker create -p 8081:8081 -i -t --name english-service --network my-net voca'
+                sh 'docker container start english-service'
+            }
+        }
+    }
+}

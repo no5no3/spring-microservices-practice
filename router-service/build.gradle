@@ -1,0 +1,35 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE"
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "org.springframework.cloud:spring-cloud-starter-netflix-zuul:${springCloudVersion}"
+    compile "org.springframework.boot:spring-boot-starter-security"
+//    compile "org.springframework.security.oauth:spring-security-oauth2"
+//    compile project(':account-service')
+}
+
+jar {
+    baseName = 'app'
+    version =  '0.0.1'
+//    manifest {
+//        attributes 'Main-Class': 'net.no5no3.microservices.account.AccountApplication'
+//    }
+}

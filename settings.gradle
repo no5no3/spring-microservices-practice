@@ -1,0 +1,4 @@
+rootProject.name = 'spring-microservices-practice'
+include 'router-service'
+include 'account-service'
+include 'english-service'

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.no5no3.microservices.english.mapper.VocabularyMapper">
+    <select id="selectByLetter" resultMap="vocaMap">
+        select * from vocabulary
+        WHERE en = #{letter}
+    </select>
+    <insert id="insert" parameterType="net.no5no3.microservices.english.model.Vocabulary" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO vocabulary(en,cn,classify) VALUE (#{en}, #{cn},#{classify})
+    </insert>
+    <update id="update" parameterType="net.no5no3.microservices.english.model.Vocabulary">
+        UPDATE vocabulary
+        <set>
+            <if test="cn != null">
+                cn = #{cn},
+            </if>
+            <if test="en != null">
+                en = #{en},
+            </if>
+            <if test="classify != null">
+                classify = #{classify}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM vocabulary WHERE id = #{id}
+    </delete>
+    <resultMap id="vocaMap" type="net.no5no3.microservices.english.model.Vocabulary">
+        <id property="id" column="id"></id>
+        <result property="en" column="en"></result>
+        <result property="cn" column="cn"></result>
+        <result property="classify" column="classify"></result>
+        <collection property="ens" column="id" select="net.no5no3.microservices.english.mapper.CommonMapper.selectByEns"></collection>
+        <collection property="cns" column="id" select="net.no5no3.microservices.english.mapper.CommonMapper.selectByCns"></collection>
+        <collection property="subs" column="id" select="net.no5no3.microservices.english.mapper.CommonMapper.selectBySubs"></collection>
+    </resultMap>
+    <select id="groupByClassify" resultMap="vocaMap">
+        SELECT * FROM vocabulary
+        <where>
+            <if test="classify != null">
+                classify = #{classify}
+            </if>
+        </where>
+    </select>
+</mapper>

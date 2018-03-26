@@ -1,0 +1,39 @@
+ext {
+    springCloudVersion= '1.4.3.RELEASE'
+    springBootVersion= '1.5.10.RELEASE'
+}
+subprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url = 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
+    }
+    apply plugin: 'java'
+    dependencies {
+        compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+        compile "org.springframework.boot:spring-boot-starter-security"
+//        compile "org.springframework.security:spring-security-data"
+        compile "org.springframework.boot:spring-boot-starter-data-redis"
+//        compile "org.springframework.security.oauth:spring-security-oauth2"
+
+        compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:${springCloudVersion}"
+        compile "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:${springCloudVersion}"
+        compile "org.springframework.cloud:spring-cloud-starter-hystrix-dashboard:${springCloudVersion}"
+
+        compile "org.springframework.cloud:spring-cloud-starter-netflix-ribbon:${springCloudVersion}"
+        compile "org.springframework.cloud:spring-cloud-starter-openfeign:${springCloudVersion}"
+
+        compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+//        compile "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+//        compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+//        compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+        compile "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+
+        compile "mysql:mysql-connector-java:5.1.45"
+        compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1"
+//        compile "io.reactivex.rxjava2:rxjava:2.+"
+
+        testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    }
+}

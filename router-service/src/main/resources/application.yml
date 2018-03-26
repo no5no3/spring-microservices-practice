@@ -1,0 +1,133 @@
+server:
+  port: 8083
+"@zone": local.zone
+spring:
+  application:
+    name: router
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    tomcat:
+      test-while-idle: true
+      validation-query: SELECT 1
+  autoconfigure:
+    exclude: [net.no5no3.microservices.account.MyRibbonConfiguration.class]
+  redis:
+    host: localhost
+    port: 6379
+    password:
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    hostname: localhost
+    non-secure-port: ${server.port}
+    virtual-host-name: ${spring.application.name}
+    metadata-map: {
+      "zone":"local.zone"
+    }
+#    lease-renewal-interval-in-seconds: 15
+    lease-expiration-duration-in-seconds: 30
+    registry:
+      default-open-for-traffic-count: 0
+#      expected-number-of-renews-per-min: 10
+  client:
+    #use for standalone mode
+#    registerWithEureka: false
+#    fetchRegistry: false
+    region: 'local.region'
+    availability-zones: {
+      "local.region":"local.zone"
+    }
+    service-url: {"local.zone":"http://localhost:8081/eureka/"}
+    registry-fetch-interval-seconds: 30
+    initial-instance-info-replication-interval-seconds: 20
+  server:
+    renewal-percent-threshold: 0.05
+#    peer-eureka-nodes-update-interval-ms: 60000
+#    peer-eureka-status-refresh-time-interval-ms: 15000
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full
+  compression:
+    request:
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+  hystrix:
+    enable: true
+
+# use ThreadLocal bound variables in your RequestInterceptor`s
+# To set thread isolation to SEMAPHORE
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+# Uploading Files through Zuul
+# http://cloud.spring.io/spring-cloud-static/spring-cloud-netflix/1.4.3.RELEASE/single/spring-cloud-netflix.html#netflix-ribbon-starter
+#            timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+#  ReadTimeout: 60000 # uploading files
+  eureka:
+    enabled: true
+
+zuul:
+  ignored-services: '*'
+  prefix: /api
+  routes:
+    english:
+      path: /english/**
+      serviceId: english
+      sensitiveHeaders:
+    account:
+      path: /account/**
+      serviceId: account
+      sensitiveHeaders:
+#      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+#    myeureka:
+#      path: /eureka/**
+#      serviceId: myeureka
+# upload with zuul, path start with /zuul
+  servlet-path: /zuul
+  add-proxy-headers: false
+#    uploadfiles:
+#      path: /zuul/*
+
+account:
+  ribbon:
+#    NFLoadBalancerClassName:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+    NFLoadBalancerPingClassName: com.netflix.niws.loadbalancer.NIWSDiscoveryPing
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    NIWSServerListFilterClassName:
+english:
+  ribbon:
+#    NFLoadBalancerClassName:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+    NFLoadBalancerPingClassName: com.netflix.niws.loadbalancer.NIWSDiscoveryPing
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    NIWSServerListFilterClassName:
+# mybatis
+mybatis:
+  mapper-locations: classpath*:net/no5no3/microservices/${spring.application.name}/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    net:
+      no5no3:
+        microservices:
+          router: trace
+    org.springframework:
+      security: DEBUG
+security:
+  basic:
+    enabled: true
+#  sessions: always
+#  ignored: /eureka/

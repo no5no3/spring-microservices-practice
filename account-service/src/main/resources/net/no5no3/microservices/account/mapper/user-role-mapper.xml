@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.no5no3.microservices.account.mapper.UserRoleMapper">
+    <resultMap id="userRoleMap" type="net.no5no3.microservices.account.model.UserRole">
+        <id property="id" column="id"></id>
+        <association property="user" column="user_id" javaType="net.no5no3.microservices.account.model.User">
+            <result property="id" column="uid"></result>
+            <result property="name" column="uname"></result>
+            <result property="openid" column="openid"></result>
+            <result property="unionid" column="unionid"></result>
+            <result property="password" column="password"></result>
+        </association>
+        <association property="role" column="role_id" javaType="net.no5no3.microservices.account.model.Role">
+            <result property="id" column="rid"></result>
+            <result property="name" column="rname"></result>
+        </association>
+    </resultMap>
+    <select id="selectByUserAndRole" resultMap="userRoleMap">
+        select ur.*,
+        u.id AS uid,u.name as uname,u.openid as openid,
+        u.unionid as unionid,u.password as password,
+        r.id as rid,r.name as rname
+        from user_role ur
+        INNER JOIN user u ON u.id = ur.user_id
+        INNER JOIN role r ON r.id = ur.role_id
+        <where>
+            u.name = #{user}
+            <if test="role != null">
+                AND r.name = #{role}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="userRoleByUserIdMap" type="net.no5no3.microservices.account.model.UserRole">
+        <id property="id" column="id"></id>
+        <association property="user" column="user_id" select="net.no5no3.microservices.account.mapper.UserMapper.selectById">
+        </association>
+        <association property="role" column="role_id" select="net.no5no3.microservices.account.mapper.RoleMapper.selectById">
+        </association>
+    </resultMap>
+    <select id="selectByUserId" resultMap="userRoleByUserIdMap" parameterType="int">
+        select ur.*
+        from user_role ur
+        WHERE ur.user_id = #{id}
+    </select>
+    <insert id="insert" parameterType="net.no5no3.microservices.account.model.UserRole">
+        INSERT INTO user_role(user_id,role_id) VALUE (#{userId}, #{roleId})
+    </insert>
+    <update id="update" parameterType="net.no5no3.microservices.account.model.UserRole">
+        UPDATE user_role
+        SET user_id = #{userId},role_id = #{roleId}
+        WHERE id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM user_role WHERE id = #{id}
+    </delete>
+</mapper>
