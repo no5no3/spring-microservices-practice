@@ -16,7 +16,7 @@ gradle build -x test'''
             steps {
                 sh '''cd english-service
 pwd
-docker build -t english-service .
+docker build -t english-service --rm .
 docker stop english-service | exit 0
 docker rm english-service | exit 0
 docker create -p 8082:8082 -i -t --name english-service --network my-net voca

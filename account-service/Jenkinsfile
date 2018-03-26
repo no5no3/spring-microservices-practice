@@ -17,7 +17,7 @@ gradle build -x test'''
             steps {
                 sh '''cd account-service
 pwd
-docker build -t account-service .
+docker build -t account-service --rm .
 docker stop account-service | exit 0
 docker rm account-service | exit 0
 docker create -p 8081:8081 -i -t --name account-service --network my-net voca

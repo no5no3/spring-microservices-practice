@@ -16,7 +16,7 @@ gradle build -x test'''
             steps {
                 sh '''cd router-service
 pwd
-docker build -t router-service .
+docker build -t router-service --rm .
 docker stop router-service | exit 0
 docker rm router-service | exit 0
 docker create -p 8083:8083 -i -t --name router-service --network my-net voca
