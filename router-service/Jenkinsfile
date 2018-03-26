@@ -6,7 +6,7 @@ pipeline {
                 sh '''echo \"begin\"
 cd router-service
 pwd
-cat /home/hirenloong/datasource > src/main/resources/application-prod.yml
+cat /home/hirenloong/datasource >> src/main/resources/application-prod.yml
 cat /home/hirenloong/userinfo >> src/main/resources/application-prod.yml
 cat src/main/resources/application-prod.yml
 gradle build -x test'''

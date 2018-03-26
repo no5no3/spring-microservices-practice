@@ -3,3 +3,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/voca
     username: root
     password: 123456
+eureka:
+  client:
+    service-url:
+      'local.zone': "http://user:password@localhost:8083/eureka/"

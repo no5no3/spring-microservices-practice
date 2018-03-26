@@ -1,0 +1,4 @@
+eureka:
+  client:
+    service-url:
+      'local.zone': "http://account-service:8081/eureka/"

@@ -1,0 +1,4 @@
+eureka:
+  client:
+    service-url:
+      'local.zone': "http://english-service:8082/eureka/"

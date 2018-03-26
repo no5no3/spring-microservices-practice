@@ -4,6 +4,10 @@ spring:
     username: root
     password: 123456
 
+eureka:
+  client:
+    service-url:
+      'local.zone': "http://localhost:8081/eureka/"
 security:
   user:
     name: user

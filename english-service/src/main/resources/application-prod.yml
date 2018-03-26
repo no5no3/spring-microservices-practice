@@ -1,0 +1,4 @@
+eureka:
+  client:
+    service-url:
+      'local.zone': "http://${router.user.name}:${router.user.password}@router-service:8083/eureka/"
