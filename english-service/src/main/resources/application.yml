@@ -17,7 +17,6 @@ spring:
 eureka:
   instance:
     instance-id: ${spring.application.name}
-    hostname: localhost
     non-secure-port: ${server.port}
     virtual-host-name: ${spring.application.name}
     metadata-map: {
@@ -32,7 +31,6 @@ eureka:
     #use for standalone mode
 #    registerWithEureka: false
 #    fetchRegistry: false
-    service-url: {"local.zone":"http://localhost:8081/eureka/"}
     region: 'local.region'
     availability-zones: {
       "local.region":"local.zone"

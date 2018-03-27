@@ -8,6 +8,8 @@ spring:
     port: 6379
     password:
 eureka:
+  instance:
+    hostname: localhost
   client:
     service-url:
       'local.zone': "http://user:password@localhost:8083/eureka/"
