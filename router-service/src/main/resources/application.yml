@@ -13,10 +13,6 @@ spring:
       validation-query: SELECT 1
   autoconfigure:
     exclude: [net.no5no3.microservices.account.MyRibbonConfiguration.class]
-  redis:
-    host: localhost
-    port: 6379
-    password:
 
 eureka:
   instance:
