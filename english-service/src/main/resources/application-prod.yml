@@ -1,4 +1,6 @@
 eureka:
+  instance:
+    hostname: english-service
   client:
     service-url:
       'local.zone': "http://${router.user.name}:${router.user.password}@router-service:8083/eureka/"
