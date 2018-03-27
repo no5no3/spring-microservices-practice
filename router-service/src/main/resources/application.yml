@@ -11,8 +11,6 @@ spring:
     tomcat:
       test-while-idle: true
       validation-query: SELECT 1
-  autoconfigure:
-    exclude: [net.no5no3.microservices.account.MyRibbonConfiguration.class]
 
 eureka:
   instance:
@@ -61,15 +59,14 @@ hystrix:
       execution:
         isolation:
           strategy: SEMAPHORE
-          thread:
 # Uploading Files through Zuul
 # http://cloud.spring.io/spring-cloud-static/spring-cloud-netflix/1.4.3.RELEASE/single/spring-cloud-netflix.html#netflix-ribbon-starter
 #            timeoutInMilliseconds: 60000
 ribbon:
-  ConnectTimeout: 60000
+  ConnectTimeout: 20000
   ReadTimeout: 60000 # uploading files
-  MaxAutoRetries: 0
-  MaxAutoRetriesNextServer: 0
+#  MaxAutoRetries: 1
+#  MaxAutoRetriesNextServer: 1
   eureka:
     enabled: true
 

@@ -11,8 +11,6 @@ spring:
     tomcat:
       test-while-idle: true
       validation-query: SELECT 1
-  autoconfigure:
-    exclude: [org.springframework.boot.autoconfigure.security.oauth2.OAuth2AutoConfiguration.class]
 
 eureka:
   instance:
@@ -52,9 +50,7 @@ feign:
       min-request-size: 2048
   hystrix:
     enable: true
-endpoints:
-  shutdown:
-    enabled: true
+
 # use ThreadLocal bound variables in your RequestInterceptor`s
 # To set thread isolation to SEMAPHORE
 hystrix:
@@ -67,8 +63,8 @@ hystrix:
 ribbon:
   ConnectTimeout: 60000
   ReadTimeout: 60000 # uploading files
-  MaxAutoRetries: 0
-  MaxAutoRetriesNextServer: 0
+#  MaxAutoRetries: 1
+#  MaxAutoRetriesNextServer: 1
   eureka:
     enabled: true
 # mybatis
@@ -87,10 +83,3 @@ logging:
 security:
   basic:
     enabled: false
-#    authorize-mode: authenticated
-#  user:
-#    password: user
-#    name: user
-#    role: system
-#  ignored: /eureka/
-#user define

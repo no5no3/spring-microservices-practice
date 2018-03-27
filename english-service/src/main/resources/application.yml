@@ -11,8 +11,6 @@ spring:
     tomcat:
       test-while-idle: true
       validation-query: SELECT 1
-  autoconfigure:
-    exclude:
 
 eureka:
   instance:
@@ -68,12 +66,9 @@ hystrix:
 ribbon:
   ConnectTimeout: 60000
   ReadTimeout: 60000 # uploading files
-  MaxAutoRetries: 0
-  MaxAutoRetriesNextServer: 0
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 1
   eureka:
-    enabled: true
-endpoints:
-  shutdown:
     enabled: true
 # mybatis
 mybatis:
