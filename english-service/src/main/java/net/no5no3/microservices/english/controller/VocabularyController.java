@@ -1,5 +1,6 @@
 package net.no5no3.microservices.english.controller;
 
+import com.github.pagehelper.PageHelper;
 import net.no5no3.microservices.english.mapper.VocabularyMapper;
 import net.no5no3.microservices.english.model.Vocabulary;
 import net.no5no3.microservices.english.service.VocaService;
@@ -72,7 +73,14 @@ public class VocabularyController {
     }
 
     @GetMapping(value = "/vocabulary")
-    public List<Vocabulary> groupVoca(@RequestParam("g") String g){
+    public List<Vocabulary> groupVoca(@RequestParam("g") String g,@RequestParam("pageNum") Integer pageNum,@RequestParam(value = "pageSize") Integer pageSize){
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        PageHelper.startPage(pageNum,pageSize);
         return vocabularyMapper.groupByClassify(g);
     }
 }

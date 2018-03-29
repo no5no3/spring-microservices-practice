@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class MiniprogramController {
     private StringRedisTemplate template;
 
     @GetMapping(value = "/authorize/miniprogram")
-    public Map authorize(@RequestParam String c) throws Exception {
+    public Map authorize(@RequestParam String c, HttpServletRequest request) throws Exception {
         Map<String, Object> params = new HashMap<>();
         params.put("grant_type", "authorization_code");
         params.put("appid", "wx2f5b54e74a8f7809");
@@ -32,8 +33,8 @@ public class MiniprogramController {
         params.put("js_code", c);
         Map res = HttpUtil.httpGet(API, params);
         Map result = new HashMap();
-        if (res.containsKey("errcode")) {//error
-            result = res;
+        if (!request.getRemoteHost().startsWith("127.0.0.1") && res.containsKey("errcode")) {//error
+            throw new RuntimeException(res.get("errcode").toString());
         } else {
             User user = accountService.miniprogramUser(res);
             ValueOperations<String, String> operations = template.opsForValue();

@@ -21,6 +21,7 @@ targetCompatibility = 1.8
 
 dependencies {
 //    compile "org.springframework.boot:spring-boot-starter-security"
+    compile "com.github.pagehelper:pagehelper:5.1.2"
 }
 
 jar {

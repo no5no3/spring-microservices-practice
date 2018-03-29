@@ -70,8 +70,7 @@ ribbon:
 # mybatis
 mybatis:
   mapper-locations: classpath*:net/no5no3/microservices/${spring.application.name}/mapper/**/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
+  config-location: classpath:mybatis-config.xml
 logging:
   level:
     net:
