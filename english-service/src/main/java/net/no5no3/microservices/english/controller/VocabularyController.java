@@ -73,7 +73,7 @@ public class VocabularyController {
     }
 
     @GetMapping(value = "/vocabulary")
-    public List<Vocabulary> groupVoca(@RequestParam("g") String g,@RequestParam("pageNum") Integer pageNum,@RequestParam(value = "pageSize") Integer pageSize){
+    public List<Vocabulary> groupVoca(@RequestParam("g") String g,@RequestParam(value = "pageNum",required = false) Integer pageNum,@RequestParam(value = "pageSize",required = false) Integer pageSize){
         if (pageNum == null) {
             pageNum = 1;
         }

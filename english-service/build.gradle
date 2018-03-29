@@ -28,6 +28,6 @@ jar {
     baseName = 'app'
     version =  '0.0.1'
 //    manifest {
-//        attributes 'Main-Class': 'net.no5no3.microservices.account.AccountApplication'
+//        attributes 'Main-Class': 'net.no5no3.microservices.english.AccountApplication'
 //    }
 }

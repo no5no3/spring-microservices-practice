@@ -78,10 +78,10 @@ zuul:
       path: /english/**
       serviceId: english
       sensitiveHeaders:
-    account:
-      path: /account/**
-      serviceId: account
-      sensitiveHeaders:
+#    account:
+#      path: /account/**
+#      serviceId: account
+#      sensitiveHeaders:
 #      sensitiveHeaders: Cookie,Set-Cookie,Authorization
 #    myeureka:
 #      path: /eureka/**
@@ -92,12 +92,12 @@ zuul:
 #    uploadfiles:
 #      path: /zuul/*
 
-account:
-  ribbon:
+#account:
+#  ribbon:
 #    NFLoadBalancerClassName:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
-    NFLoadBalancerPingClassName: com.netflix.niws.loadbalancer.NIWSDiscoveryPing
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+#    NFLoadBalancerPingClassName: com.netflix.niws.loadbalancer.NIWSDiscoveryPing
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
 #    NIWSServerListFilterClassName:
 english:
   ribbon:

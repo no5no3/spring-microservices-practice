@@ -13,7 +13,7 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      'local.zone': "http://localhost:8081/eureka/"
+      'local.zone': "http://localhost:8082/eureka/"
 security:
   user:
     name: user

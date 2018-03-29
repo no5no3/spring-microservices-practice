@@ -30,7 +30,7 @@ public class AuthorizeZuulPreFilter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
-        if (request.getRequestURI().startsWith("/api/account/authorize")) {
+        if (request.getRequestURI().startsWith("/api/english/authorize")) {
         } else {
             String token = request.getHeader("token");
             if (StringUtils.isEmpty(token) || template.opsForValue().getOperations().getExpire(token)< 0) {

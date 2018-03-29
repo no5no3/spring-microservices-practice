@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.no5no3.microservices.english.mapper.UserMapper">
+    <resultMap id="userMap" type="net.no5no3.microservices.english.model.User">
+        <id property="id" column="id"></id>
+        <result property="openid" column="openid"></result>
+        <result property="unionid" column="unionid"></result>
+        <result property="name" column="name"></result>
+        <result property="password" column="password"></result>
+        <collection property="userRole" column="id" select="net.no5no3.microservices.english.mapper.UserRoleMapper.selectByUserId"></collection>
+    </resultMap>
+    <select id="selectByName" resultMap="userMap">
+        select * from user
+        WHERE name = #{name}
+    </select>
+    <select id="selectByOpenid" resultMap="userMap">
+        select * from user
+        WHERE openid = #{openid}
+    </select>
+    <select id="selectById" resultMap="userMap">
+        select * from user
+        WHERE id = #{id}
+    </select>
+    <insert id="insert" parameterType="net.no5no3.microservices.english.model.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user(openid, unionid, name,password) VALUE (#{openid}, #{unionid},#{name},#{password})
+    </insert>
+    <update id="update" parameterType="net.no5no3.microservices.english.model.User">
+        UPDATE user
+        <set>
+            <if test="openid != null">
+                openid = #{openid},
+            </if>
+            <if test="unionid != null">
+                unionid = #{unionid},
+            </if>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="password != null">
+                password = #{password}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+</mapper>
