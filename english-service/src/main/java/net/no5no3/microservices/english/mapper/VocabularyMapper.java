@@ -15,4 +15,5 @@ public interface VocabularyMapper {
     int update(Vocabulary vocabulary);
     int delete(Integer id);
     List<Vocabulary> groupByClassify(@Param("classify") String classify);
+    List<String> group();
 }

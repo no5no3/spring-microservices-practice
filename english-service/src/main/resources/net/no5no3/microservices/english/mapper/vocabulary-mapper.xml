@@ -45,4 +45,7 @@
             </if>
         </where>
     </select>
+    <select id="group" resultType="string">
+        SELECT DISTINCT classify FROM vocabulary WHERE classify is not NULL
+    </select>
 </mapper>
