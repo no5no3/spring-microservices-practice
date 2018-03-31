@@ -18,6 +18,7 @@
 #### 服务容错
 有效的容错模式和最佳实践
 1. 电路熔断器模式(Circuit Breaker Patten)
+
 ![](https://res.infoq.com/articles/basis-frameworkto-implement-micro-service/zh/resources/1125007.png)
 2. 舱壁隔离模式(Bulkhead Isolation Pattern)
 服务线程隔离，某个服务的延迟不影响其他服务
