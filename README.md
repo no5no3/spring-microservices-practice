@@ -20,9 +20,12 @@
 1. 电路熔断器模式(Circuit Breaker Patten)
 
 ![](https://res.infoq.com/articles/basis-frameworkto-implement-micro-service/zh/resources/1125007.png)
+
 2. 舱壁隔离模式(Bulkhead Isolation Pattern)
 服务线程隔离，某个服务的延迟不影响其他服务
+
 ![](https://docs.microsoft.com/en-us/azure/architecture/patterns/_images/bulkhead-1.png)
+
 3. 限流(Rate Limiting/Load Shedder)对服务限定并发访问量
 4. 回退(fallback)
 #### 运行期配置管理
